@@ -321,6 +321,32 @@ app = <span class="f">FastAPI</span>()
         </div>
       </article>
 
+      <article class="project reveal">
+        <div class="p-body">
+          <div class="p-tag">FRONTEND &middot; REACT + TYPESCRIPT</div>
+          <h3 class="p-title">Theme Generator &mdash; shadcn/ui Theming Tool</h3>
+          <p class="p-desc">A real-time theme generator for shadcn/ui apps. Pick a primary color and the entire interface &mdash; buttons, cards, charts, borders &mdash; retints instantly across four live preview screens. Every palette role is auto-derived from a single HSL primary, with automatic light/dark mode and one-click CSS variable export.</p>
+          <div class="p-stack"><span>React 19</span><span>TypeScript</span><span>Vite</span><span>TailwindCSS</span><span>Radix UI</span><span>shadcn/ui</span></div>
+          <div class="p-links">
+            <a href="https://theme-generator-pi.vercel.app/dashboard" target="_blank">Live demo <span class="arr">&#8599;</span></a>
+            <a href="https://github.com/abdelghani-djef/Theme-Generator" target="_blank">Source <span class="arr">&#8599;</span></a>
+          </div>
+        </div>
+        <div class="p-visual">
+          <div class="p-bar"><i></i><i></i><i></i></div>
+          <pre class="p-code"><span class="c">// theme.ts</span>
+<span class="k">const</span> <span class="f">derive</span> = (primary) =&gt; {
+  <span class="k">const</span> { h, s, l } = primary
+  <span class="k">return</span> {
+    accent: <span class="f">hsl</span>(h + <span class="n">40</span>, s * <span class="n">0.8</span>, l),
+    muted:  <span class="f">hsl</span>(h, s * <span class="n">0.3</span>, <span class="n">0.6</span>),
+    mode: <span class="f">luminance</span>(primary) &lt; <span class="n">0.45</span>
+      ? <span class="s">"light"</span> : <span class="s">"dark"</span>,
+  }
+}</pre>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
