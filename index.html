@@ -95,6 +95,14 @@
   .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
   .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
+  /* language switch */
+  .nav-links{margin-left:auto}
+  .lang{display:flex;gap:2px;margin-left:18px;border:1px solid var(--line-strong);border-radius:8px;padding:3px}
+  .lang button{font-family:var(--mono);font-size:12px;color:var(--muted);background:none;border:0;border-radius:6px;padding:5px 9px;cursor:pointer;transition:.2s}
+  .lang button:hover{color:var(--text)}
+  .lang button[aria-pressed="true"]{background:var(--surface-2);color:var(--accent)}
+  @media(max-width:820px){.lang{margin-left:auto;margin-right:12px}}
+
   /* ---------- hero ---------- */
   header{min-height:100vh;display:flex;align-items:center;padding:120px 0 64px;position:relative}
   .hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:center;margin-bottom:56px}
@@ -428,6 +436,10 @@
     <a href="#skills">stack</a>
     <a href="#experience">experience</a>
     <a href="#contact" class="nav-cta">Hire me</a>
+  </div>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="fr" aria-pressed="false">FR</button>
   </div>
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navlinks"><span></span><span></span><span></span></button>
   <div class="progress" id="progress"></div>
@@ -821,6 +833,7 @@ app = <span class="f">FastAPI</span>()
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   const $ = id => document.getElementById(id);
+  let lang = 'en';
 
   /* nav: scrolled state + reading progress */
   const nav = $('nav'), progress = $('progress');
@@ -960,6 +973,7 @@ app = <span class="f">FastAPI</span>()
     {w:'eager', fr:'impatient, enthousiaste', ar:'متحمّس', ex:'She was eager to start.'},
   ];
   const NOTES = ['You will see it again in 1 minute', 'Back in 6 minutes', 'Back in 10 minutes', 'Next review in 4 days'];
+  const NOTES_FR = ['Vous la reverrez dans 1 minute', 'De retour dans 6 minutes', 'De retour dans 10 minutes', 'Prochaine révision dans 4 jours'];
   const card = $('lcCard'), grades = $('lcGrades'), note = $('lcNote');
   let pos = 0;
   function render(){
@@ -971,12 +985,14 @@ app = <span class="f">FastAPI</span>()
     card.classList.toggle('flipped', on);
     grades.classList.toggle('on', on);
     grades.querySelectorAll('button').forEach(b => b.disabled = !on);
-    card.setAttribute('aria-label', on ? `${DECK[pos].w}: ${DECK[pos].fr}. Rate how well you knew it.` : `Flashcard: ${DECK[pos].w}. Press to show the answer.`);
+    card.setAttribute('aria-label', lang === 'fr'
+      ? (on ? `${DECK[pos].w} : ${DECK[pos].fr}. Indiquez si vous le connaissiez.` : `Carte : ${DECK[pos].w}. Appuyez pour voir la réponse.`)
+      : (on ? `${DECK[pos].w}: ${DECK[pos].fr}. Rate how well you knew it.` : `Flashcard: ${DECK[pos].w}. Press to show the answer.`));
   }
   card.addEventListener('click', () => setFlipped(!card.classList.contains('flipped')));
   grades.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b || b.disabled) return;
-    note.textContent = NOTES[+b.dataset.g];
+    note.textContent = (lang === 'fr' ? NOTES_FR : NOTES)[+b.dataset.g];
     grades.querySelectorAll('button').forEach(x => x.disabled = true);
     card.classList.add('out');
     setTimeout(() => {
@@ -992,11 +1008,16 @@ app = <span class="f">FastAPI</span>()
 
   /* Matjari: screenshot tabs + lightbox */
   const SHOTS = [
-    {t:'Storefront', c:'The storefront each seller gets. Hover to scroll the page.'},
-    {t:'Arabic', c:'The same store in Arabic, right to left. Buyers switch between Arabic, French and English.'},
-    {t:'Product', c:'Product page with size choice and a cash-on-delivery order form for all 69 wilayas.'},
-    {t:'Orders', c:'Orders list: confirmers move each order from new to confirmed, shipped and delivered.'},
-    {t:'Studio', c:'Appearance studio: sellers pick a layout and colors and preview the store live.'},
+    {t:'Storefront', c:'The storefront each seller gets. Hover to scroll the page.',
+     tf:'Boutique', cf:'La boutique que reçoit chaque vendeur. Survolez pour faire défiler la page.'},
+    {t:'Arabic', c:'The same store in Arabic, right to left. Buyers switch between Arabic, French and English.',
+     tf:'Arabe', cf:'La même boutique en arabe, de droite à gauche. Les clients passent de l’arabe au français ou à l’anglais.'},
+    {t:'Product', c:'Product page with size choice and a cash-on-delivery order form for all 69 wilayas.',
+     tf:'Produit', cf:'Page produit avec choix de la taille et formulaire de commande à la livraison pour les 69 wilayas.'},
+    {t:'Orders', c:'Orders list: confirmers move each order from new to confirmed, shipped and delivered.',
+     tf:'Commandes', cf:'Liste des commandes : les confirmateurs font passer chaque commande de nouvelle à confirmée, expédiée puis livrée.'},
+    {t:'Studio', c:'Appearance studio: sellers pick a layout and colors and preview the store live.',
+     tf:'Studio', cf:'Studio d’apparence : les vendeurs choisissent une mise en page et des couleurs et voient la boutique en direct.'},
   ];
   const mgTabs = [...$('mgTabs').querySelectorAll('button')];
   const mgImgs = [...$('mgStage').querySelectorAll('img')];
@@ -1005,7 +1026,7 @@ app = <span class="f">FastAPI</span>()
     shot = (i + SHOTS.length) % SHOTS.length;
     mgTabs.forEach((b, j) => { b.setAttribute('aria-selected', j === shot); b.tabIndex = j === shot ? 0 : -1; });
     mgImgs.forEach((im, j) => im.classList.toggle('on', j === shot));
-    $('mgCaption').textContent = SHOTS[shot].c;
+    $('mgCaption').textContent = lang === 'fr' ? SHOTS[shot].cf : SHOTS[shot].c;
     if (focus) mgTabs[shot].focus();
     if ($('lightbox').open) fillLightbox();
   }
@@ -1017,7 +1038,7 @@ app = <span class="f">FastAPI</span>()
   const lb = $('lightbox');
   function fillLightbox(){
     const im = mgImgs[shot];
-    $('lbImg').src = im.src; $('lbImg').alt = im.alt; $('lbTitle').textContent = `Matjari ${SHOTS[shot].t}  (${shot + 1}/${SHOTS.length})`;
+    $('lbImg').src = im.src; $('lbImg').alt = im.alt; $('lbTitle').textContent = `Matjari ${lang === 'fr' ? SHOTS[shot].tf : SHOTS[shot].t}  (${shot + 1}/${SHOTS.length})`;
     lb.scrollTop = 0;
   }
   $('mgStage').addEventListener('click', () => { fillLightbox(); lb.showModal(); });
@@ -1034,11 +1055,179 @@ app = <span class="f">FastAPI</span>()
   const copyBtn = $('copyMail');
   copyBtn.addEventListener('click', async () => {
     const addr = 'abdelghani.djefaflia@gmail.com';
-    try { await navigator.clipboard.writeText(addr); copyBtn.textContent = 'Copied'; }
-    catch { copyBtn.textContent = 'Select the address below'; }
+    try { await navigator.clipboard.writeText(addr); copyBtn.textContent = lang === 'fr' ? 'Copié' : 'Copied'; }
+    catch { copyBtn.textContent = lang === 'fr' ? 'Sélectionnez l’adresse ci-dessous' : 'Select the address below'; }
     copyBtn.dataset.done = 'true';
-    setTimeout(() => { copyBtn.textContent = 'Copy address'; copyBtn.dataset.done = 'false'; }, 2200);
+    setTimeout(() => { copyBtn.textContent = lang === 'fr' ? 'Copier l’adresse' : 'Copy address'; copyBtn.dataset.done = 'false'; }, 2200);
   });
+
+  /* language: English in the HTML, French below, keyed by each element's English text */
+  const FR = {
+      "work": "projets",
+      "services": "services",
+      "stack": "stack",
+      "experience": "expérience",
+      "Hire me": "Me contacter",
+      "Available for new projects, remote or full-time": "<span class=\"dot\"></span> Disponible pour de nouveaux projets, à distance ou à temps plein",
+      "Full-stack developer": "Développeur full-stack",
+      "I build and ship web products end to end: React frontends, FastAPI backends, AI features, and the DevOps that runs them. 4 years in production, at home on Linux.": "Je conçois et livre des produits web de A à Z : des interfaces <b>React</b>, des backends <b>FastAPI</b>, des fonctionnalités d'<b>IA</b> et le <b>DevOps</b> qui les fait tourner. 4 ans en production, à l'aise sous <b>Linux</b>.",
+      "See my work": "Voir mes projets",
+      "Get in touch": "Me contacter",
+      "years shipping apps to production": "ans à livrer des applications en production",
+      "AI-powered products built end to end": "produits avec IA conçus de A à Z",
+      "interface languages: Arabic, French, English": "langues d'interface : arabe, français, anglais",
+      "wilayas covered by Matjari's checkout": "wilayas couvertes par le paiement de Matjari",
+      "Selected work": "Réalisations",
+      "Three products I designed and built end to end, then smaller projects.": "Trois produits que j'ai conçus et développés de A à Z, puis des projets plus petits.",
+      "AI learning app": "Appli d'apprentissage IA",
+      "An AI-based platform for learning English, made for French and Arabic speakers.": "Une plateforme d'apprentissage de l'anglais basée sur l'IA, pensée pour les francophones et les arabophones.",
+      "Type any word: AI translates it, explains it simply, and writes short stories with the words you study.": "Tapez n'importe quel mot : l'IA le traduit, l'explique simplement et écrit de courtes histoires avec les mots que vous étudiez.",
+      "The FSRS spaced-repetition algorithm decides when each card comes back, with quizzes, streaks and badges.": "L'algorithme de répétition espacée FSRS décide quand chaque carte revient, avec quiz, séries et badges.",
+      "Works in English, French and Arabic (right to left). No account needed: progress stays in the browser.": "Fonctionne en anglais, en français et en arabe (de droite à gauche). Sans compte : la progression reste dans le navigateur.",
+      "Open the app ↗": "Ouvrir l'appli <span class=\"arr\">&#8599;</span>",
+      "Source ↗": "Code source <span class=\"arr\">&#8599;</span>",
+      "linguacards — study": "linguacards — révision",
+      "Card 1 / 3": "Carte <b id=\"lcPos\">1</b> / 3",
+      "Click to flip": "Cliquez pour retourner",
+      "Again1 min": "Encore<small>1 min</small>",
+      "Hard6 min": "Difficile<small>6 min</small>",
+      "Good10 min": "Bien<small>10 min</small>",
+      "Easy4 days": "Facile<small>4 jours</small>",
+      "E-commerce SaaS": "SaaS e-commerce",
+      "A multi-store e-commerce platform for Algerian sellers: each seller gets their own online store.": "Une plateforme e-commerce multi-boutiques pour les vendeurs algériens : chaque vendeur a sa propre boutique en ligne.",
+      "Cash-on-delivery checkout for all 69 wilayas, with bundle offers, discount codes and free-delivery rules.": "Paiement à la livraison dans les 69 wilayas, avec offres groupées, codes promo et règles de livraison gratuite.",
+      "Order confirmation teams, abandoned-order recovery over WhatsApp, and profit per product and wilaya.": "Équipes de confirmation des commandes, relance des commandes abandonnées sur WhatsApp, et bénéfice par produit et par wilaya.",
+      "An appearance studio with 4 layouts and 12 color schemes, and stores in Arabic, French and English.": "Un studio d'apparence avec 4 mises en page et 12 palettes de couleurs, et des boutiques en arabe, français et anglais.",
+      "Private codebase, screenshots only": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><rect x=\"4\" y=\"11\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 11V7a4 4 0 0 1 8 0v4\"/></svg>Code privé, captures d'écran uniquement",
+      "Storefront": "Boutique",
+      "Arabic": "Arabe",
+      "Product": "Produit",
+      "Orders": "Commandes",
+      "Click to enlarge": "Cliquez pour agrandir",
+      "AI automation": "Automatisation IA",
+      "AI lead qualification for small businesses: every website inquiry is scored, summarized and answered before the owner opens their inbox.": "Qualification des prospects par IA pour les petites entreprises : chaque demande reçue sur le site est notée, résumée et a sa réponse prête avant même que le gérant ouvre sa boîte mail.",
+      "Scores each lead hot, warm or cold with the reason, budget and urgency, and drafts a reply in the customer's language: English, French or Arabic.": "Classe chaque prospect chaud, tiède ou froid avec la raison, le budget et l'urgence, et rédige une réponse dans la langue du client : anglais, français ou arabe.",
+      "Treats form messages as untrusted input: attempts to trick the AI are caught and filed as spam.": "Traite les messages du formulaire comme des données non fiables : les tentatives de piéger l'IA sont détectées et classées en spam.",
+      "Sends every lead to n8n, Google Sheets or a CRM through a signed webhook, and keeps working offline when the AI is unavailable.": "Envoie chaque prospect vers n8n, Google Sheets ou un CRM via un webhook signé, et continue de fonctionner hors ligne si l'IA est indisponible.",
+      "leadpilot — how it works": "leadpilot — comment ça marche",
+      "A customer writes": "Un client écrit",
+      "A message arrives from the website's contact form.": "Un message arrive via le formulaire de contact du site.",
+      "AI reads it": "L'IA le lit",
+      "In about one second, in English, French or Arabic.": "En une seconde environ, en anglais, français ou arabe.",
+      "It sorts the customer": "Elle classe le client",
+      "Hot, warm or cold, so the best customers come first.": "Chaud, tiède ou froid : les meilleurs clients passent en premier.",
+      "A reply is ready": "Une réponse est prête",
+      "Written in the customer's language, ready to send.": "Rédigée dans la langue du client, prête à envoyer.",
+      "Nothing gets lost": "Rien ne se perd",
+      "Every customer is saved to a list, like Google Sheets.": "Chaque client est enregistré dans une liste, comme Google Sheets.",
+      "More projects": "Autres projets",
+      "All repositories on GitHub ↗": "Tous mes dépôts sur GitHub &#8599;",
+      "Developer tool": "Outil pour développeurs",
+      "Pick one color and a whole shadcn/ui interface retints live across four preview screens. Every palette role is derived from it, with light and dark mode and one-click CSS export.": "Choisissez une couleur et toute une interface shadcn/ui se recolore en direct sur quatre écrans d'aperçu. Chaque rôle de la palette en découle, avec modes clair et sombre et export CSS en un clic.",
+      "Full-stack app": "Application full-stack",
+      "A todo app built front to back: a FastAPI REST API with JWT login and PostgreSQL, and a React + TypeScript frontend, deployed with Docker on a Linux VPS behind Nginx.": "Une appli de tâches développée de bout en bout : une API REST FastAPI avec connexion JWT et PostgreSQL, et un frontend React + TypeScript, déployée avec Docker sur un VPS Linux derrière Nginx.",
+      "Backend source ↗": "Code backend <span class=\"arr\">&#8599;</span>",
+      "Frontend source ↗": "Code frontend <span class=\"arr\">&#8599;</span>",
+      "What I can build for your business. Every project starts with a free call to agree on what you need.": "Ce que je peux créer pour votre entreprise. Chaque projet commence par un appel gratuit pour définir vos besoins.",
+      "Let AI handle the repetitive work: sorting messages, answering customers and moving data between your tools.": "Confiez les tâches répétitives à l'IA : trier les messages, répondre aux clients et faire circuler les données entre vos outils.",
+      "AI that reads, sorts and answers customer messages": "Une IA qui lit, trie et répond aux messages de vos clients",
+      "Chatbots that answer from your own documents and FAQ": "Des chatbots qui répondent à partir de vos documents et de votre FAQ",
+      "n8n workflows connecting email, Google Sheets and your CRM": "Des workflows n8n qui relient e-mail, Google Sheets et votre CRM",
+      "Price on request": "Prix sur demande",
+      "from": "dès",
+      "1–2 weeks": "1 à 2 semaines",
+      "1–3 weeks": "1 à 3 semaines",
+      "2–6 weeks": "2 à 6 semaines",
+      "Start a project": "Lancer un projet",
+      "See LeadPilot": "Voir LeadPilot",
+      "See Matjari": "Voir Matjari",
+      "See LinguaCards": "Voir LinguaCards",
+      "Online store for Algerian sellers": "Boutique en ligne pour vendeurs algériens",
+      "Sell beyond Facebook with your own store, built for cash on delivery.": "Vendez au-delà de Facebook avec votre propre boutique, pensée pour le paiement à la livraison.",
+      "Store in Arabic and French, fast on phones": "Boutique en arabe et en français, rapide sur mobile",
+      "Cash-on-delivery checkout for all 69 wilayas": "Paiement à la livraison dans les 69 wilayas",
+      "Order dashboard, with delivery company integration": "Tableau de bord des commandes, relié à la société de livraison",
+      "Custom web app": "Application web sur mesure",
+      "From an idea to a live product your users can sign in to.": "De l'idée à un produit en ligne où vos utilisateurs peuvent se connecter.",
+      "React or Next.js frontend, FastAPI backend": "Frontend React ou Next.js, backend FastAPI",
+      "Database, user accounts and admin dashboard": "Base de données, comptes utilisateurs et tableau d'administration",
+      "Deployed on your server with Docker and HTTPS": "Déployée sur votre serveur avec Docker et HTTPS",
+      "Free first call": "Premier appel gratuit",
+      "We talk about your goal, and I tell you honestly whether I'm the right fit.": "Nous parlons de votre objectif, et je vous dis franchement si je suis la bonne personne.",
+      "Fixed price, in writing": "Prix fixe, par écrit",
+      "You get the scope, price and deadline before any work starts.": "Vous recevez le périmètre, le prix et le délai avant le début du travail.",
+      "Weekly updates": "Suivi chaque semaine",
+      "You see progress every week and test everything before launch.": "Vous voyez l'avancement chaque semaine et testez tout avant la mise en ligne.",
+      "The tools I reach for, and where you can see them in use.": "Les outils que j'utilise, et où les voir en action.",
+      "APIs, data models, auth and background jobs.": "API, modèles de données, authentification et tâches de fond.",
+      "Fast, accessible interfaces, including right-to-left.": "Des interfaces rapides et accessibles, y compris de droite à gauche.",
+      "Containers, servers and pipelines that keep apps running.": "Conteneurs, serveurs et pipelines qui font tourner les applis.",
+      "Used in Matjari, LeadPilot, Taskly": "Utilisé dans <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-taskly\">Taskly</a>",
+      "Used in LinguaCards, Matjari, LeadPilot, Theme Generator": "Utilisé dans <a href=\"#p-linguacards\">LinguaCards</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-theme\">Theme Generator</a>",
+      "Used in Taskly, Matjari, LeadPilot": "Utilisé dans <a href=\"#p-taskly\">Taskly</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>",
+      "Experience": "Expérience",
+      "Where I've built software professionally.": "Là où j'ai développé des logiciels en entreprise.",
+      "2023 – nowFull-time": "2023 &ndash; aujourd'hui<small>Temps plein</small>",
+      "Full-Stack Developer": "Développeur Full-Stack",
+      "Smart Drilling Ops, React, FastAPI and DevOps": "<b>Smart Drilling Ops</b>, React, FastAPI et DevOps",
+      "Build full-stack web applications with React frontends and FastAPI backends.": "Développement d'applications web full-stack avec React et FastAPI.",
+      "Own deployments end to end: Docker, Nginx, and CI/CD on Linux servers.": "Responsable des déploiements de bout en bout : Docker, Nginx et CI/CD sur serveurs Linux.",
+      "Design REST APIs, PostgreSQL schemas, and authentication flows.": "Conception d'API REST, de schémas PostgreSQL et de systèmes d'authentification.",
+      "2022 – 20231.5 years": "2022 &ndash; 2023<small>1,5 an</small>",
+      "Odoo Developer": "Développeur Odoo",
+      "Nechma Group, Python and Odoo": "<b>Nechma Group</b>, Python et Odoo",
+      "Developed and customized Odoo ERP modules to fit client business workflows.": "Développement et personnalisation de modules Odoo ERP adaptés aux processus des clients.",
+      "Built models, views, and business logic in Python on the Odoo framework.": "Création de modèles, de vues et de logique métier en Python sur le framework Odoo.",
+      "Handled module deployment, configuration, and ongoing maintenance.": "Déploiement, configuration et maintenance continue des modules.",
+      "Let's build something together": "Construisons quelque chose <span class=\"nw\">ensemble<span class=\"block-cursor\" aria-hidden=\"true\"></span></span>",
+      "I'm open to full-time roles, freelance work, and interesting collaborations. I usually reply within a day.": "Je suis ouvert aux postes à temps plein, aux missions freelance et aux collaborations intéressantes. Je réponds en général sous 24 heures.",
+      "Email me": "M'écrire",
+      "Copy address": "Copier l'adresse",
+      "Hand-written HTML, CSS and JavaScript. Back to top": "HTML, CSS et JavaScript écrits à la main. <a href=\"#top\">Retour en haut</a>",
+      "Close": "Fermer"
+  };
+  const META = {
+    en: {title: document.title, desc: document.querySelector('meta[name="description"]').content},
+    fr: {title: 'Abdelghani Djef — Développeur full-stack',
+         desc: 'Abdelghani Djef, développeur full-stack. Applications web React et FastAPI, produits IA, et leur mise en production avec Docker, Nginx et CI/CD sous Linux.'},
+  };
+  const norm = t => t.replace(/\s+/g, ' ').trim();
+  const i18nEls = [];
+  (function collect(root){
+    for (const el of root.children){
+      if (/^(script|style|pre|svg|h1|img)$/i.test(el.tagName)) continue;
+      const key = norm(el.textContent);
+      // Translate the deepest element that holds the whole text, so links and buttons survive.
+      const deeper = [...el.children].some(c => norm(c.textContent) === key);
+      if (key && Object.hasOwn(FR, key) && !deeper) i18nEls.push({el, key, en: el.innerHTML});
+      else collect(el);
+    }
+  })(document.body);
+  if (location.hostname === 'localhost'){
+    const found = new Set(i18nEls.map(x => x.key));
+    const missing = Object.keys(FR).filter(k => !found.has(k));
+    if (missing.length) console.warn('[i18n] French text with no matching English element:', missing);
+  }
+
+  const langBtns = [...document.querySelectorAll('.lang button')];
+  function applyLang(next){
+    lang = next;
+    document.documentElement.lang = lang;
+    i18nEls.forEach(x => { x.el.innerHTML = lang === 'fr' ? FR[x.key] : x.en; });
+    document.title = META[lang].title;
+    document.querySelector('meta[name="description"]').content = META[lang].desc;
+    langBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+    render(); setFlipped(card.classList.contains('flipped')); showShot(shot);
+    try { localStorage.setItem('lang', lang); } catch {}
+  }
+  langBtns.forEach(b => b.addEventListener('click', () => { if (b.dataset.lang !== lang) applyLang(b.dataset.lang); }));
+
+  // ?lang=fr in the link wins, then the visitor's last choice, then the browser's language.
+  const asked = new URLSearchParams(location.search).get('lang');
+  let saved = null;
+  try { saved = localStorage.getItem('lang'); } catch {}
+  const startLang = asked === 'fr' || asked === 'en' ? asked : saved || (/^fr\b/i.test(navigator.language) ? 'fr' : 'en');
+  if (startLang === 'fr') applyLang('fr');
 </script>
 </body>
 </html>
