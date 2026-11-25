@@ -479,7 +479,7 @@
       <h2 class="sec-title">Selected work</h2>
       <span class="sec-line"></span>
     </div>
-    <p class="sec-intro reveal">Three products I designed and built end to end, then smaller projects.</p>
+    <p class="sec-intro reveal">Four products I designed and built end to end, then smaller projects.</p>
 
     <div class="projects">
       <article class="project spot reveal" id="p-linguacards">
@@ -613,6 +613,55 @@
           </div>
         </div>
       </article>
+      <article class="project flip spot reveal" id="p-facturelens">
+        <div class="p-body">
+          <span class="p-type">AI document reading</span>
+          <h3 class="p-title">FactureLens</h3>
+          <p class="p-summary">Turns invoices and receipts into clean, checked data: from PDFs, phone photos, screenshots, e-invoices or a Google Drive folder.</p>
+          <ul class="p-points">
+            <li>Reads Arabic, French and English documents; e-invoices (UBL, Factur-X) are read exactly, without AI.</li>
+            <li>Checks that line items, tax and total add up, and flags anything that doesn't for review.</li>
+            <li>Private by design: files are deleted right after reading and results stay in the visitor's browser.</li>
+          </ul>
+          <div class="p-stack"><span>Python</span><span>FastAPI</span><span>React</span><span>TypeScript</span><span>Groq AI</span><span>Tesseract OCR</span><span>Docker</span></div>
+          <div class="p-links">
+            <a class="main" href="https://facturelens.35-180-91-97.sslip.io" target="_blank" rel="noopener">Open the app <span class="arr">&#8599;</span></a>
+            <a href="https://github.com/abdelghani-djef/facturelens" target="_blank" rel="noopener">Source <span class="arr">&#8599;</span></a>
+          </div>
+        </div>
+        <div class="p-visual">
+          <div class="p-bar"><i></i><i></i><i></i><span class="term-title">facturelens &mdash; how it works</span></div>
+          <div class="lp-flow">
+            <ol class="lp-steps">
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 15V4M7 9l5-5 5 5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg></span>
+                <b>You add documents</b>
+                <span class="d">PDFs, photos, screenshots, e-invoices or a Drive folder.</span>
+              </li>
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></svg></span>
+                <b>AI reads them</b>
+                <span class="d">In Arabic, French or English, in a few seconds.</span>
+              </li>
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+                <b>Totals are checked</b>
+                <span class="d">Lines, tax and total must add up, or the document is flagged.</span>
+              </li>
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/></svg></span>
+                <b>You fix if needed</b>
+                <span class="d">Every value can be corrected before export.</span>
+              </li>
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M10 4v16"/></svg></span>
+                <b>Export to Excel</b>
+                <span class="d">Clean data, ready for your accountant.</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </article>
     </div>
 
     <div class="more-head reveal">
@@ -737,7 +786,7 @@ app = <span class="f">FastAPI</span>()
         <span class="pill">Python</span><span class="pill">FastAPI</span><span class="pill">Odoo</span>
         <span class="pill">REST APIs</span><span class="pill">PostgreSQL</span><span class="pill">SQLAlchemy</span>
         <span class="pill">Pydantic</span><span class="pill">Prisma</span><span class="pill">Redis</span><span class="pill">Celery</span>
-        <p class="stack-proof">Used in <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-taskly">Taskly</a></p>
+        <p class="stack-proof">Used in <a href="#p-facturelens">FactureLens</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-taskly">Taskly</a></p>
       </div>
       <div class="stack-col reveal">
         <h3>Frontend</h3>
@@ -745,7 +794,7 @@ app = <span class="f">FastAPI</span>()
         <span class="pill">React</span><span class="pill">Next.js</span><span class="pill">TypeScript</span>
         <span class="pill">JavaScript</span><span class="pill">Redux / Zustand</span><span class="pill">TanStack Query</span>
         <span class="pill">Tailwind</span><span class="pill">shadcn/ui</span><span class="pill">Vite</span>
-        <p class="stack-proof">Used in <a href="#p-linguacards">LinguaCards</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-theme">Theme Generator</a></p>
+        <p class="stack-proof">Used in <a href="#p-linguacards">LinguaCards</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-facturelens">FactureLens</a>, <a href="#p-theme">Theme Generator</a></p>
       </div>
       <div class="stack-col reveal">
         <h3>DevOps &amp; infra</h3>
@@ -753,7 +802,7 @@ app = <span class="f">FastAPI</span>()
         <span class="pill">Linux</span><span class="pill">Docker</span><span class="pill">Nginx</span>
         <span class="pill">CI/CD</span><span class="pill">GitHub Actions</span><span class="pill">Bash</span>
         <span class="pill">VPS / Azure</span><span class="pill">Vercel</span><span class="pill">Git</span>
-        <p class="stack-proof">Used in <a href="#p-taskly">Taskly</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a></p>
+        <p class="stack-proof">Used in <a href="#p-taskly">Taskly</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-facturelens">FactureLens</a></p>
       </div>
     </div>
   </div>
@@ -1079,7 +1128,6 @@ app = <span class="f">FastAPI</span>()
       "interface languages: Arabic, French, English": "langues d'interface : arabe, français, anglais",
       "wilayas covered by Matjari's checkout": "wilayas couvertes par le paiement de Matjari",
       "Selected work": "Réalisations",
-      "Three products I designed and built end to end, then smaller projects.": "Trois produits que j'ai conçus et développés de A à Z, puis des projets plus petits.",
       "AI learning app": "Appli d'apprentissage IA",
       "An AI-based platform for learning English, made for French and Arabic speakers.": "Une plateforme d'apprentissage de l'anglais basée sur l'IA, pensée pour les francophones et les arabophones.",
       "Type any word: AI translates it, explains it simply, and writes short stories with the words you study.": "Tapez n'importe quel mot : l'IA le traduit, l'explique simplement et écrit de courtes histoires avec les mots que vous étudiez.",
@@ -1163,9 +1211,6 @@ app = <span class="f">FastAPI</span>()
       "APIs, data models, auth and background jobs.": "API, modèles de données, authentification et tâches de fond.",
       "Fast, accessible interfaces, including right-to-left.": "Des interfaces rapides et accessibles, y compris de droite à gauche.",
       "Containers, servers and pipelines that keep apps running.": "Conteneurs, serveurs et pipelines qui font tourner les applis.",
-      "Used in Matjari, LeadPilot, Taskly": "Utilisé dans <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-taskly\">Taskly</a>",
-      "Used in LinguaCards, Matjari, LeadPilot, Theme Generator": "Utilisé dans <a href=\"#p-linguacards\">LinguaCards</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-theme\">Theme Generator</a>",
-      "Used in Taskly, Matjari, LeadPilot": "Utilisé dans <a href=\"#p-taskly\">Taskly</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>",
       "Experience": "Expérience",
       "Where I've built software professionally.": "Là où j'ai développé des logiciels en entreprise.",
       "2023 – nowFull-time": "2023 &ndash; aujourd'hui<small>Temps plein</small>",
@@ -1185,7 +1230,27 @@ app = <span class="f">FastAPI</span>()
       "Email me": "M'écrire",
       "Copy address": "Copier l'adresse",
       "Hand-written HTML, CSS and JavaScript. Back to top": "HTML, CSS et JavaScript écrits à la main. <a href=\"#top\">Retour en haut</a>",
-      "Close": "Fermer"
+      "Close": "Fermer",
+      "Four products I designed and built end to end, then smaller projects.": "Quatre produits que j'ai conçus et développés de A à Z, puis des projets plus petits.",
+      "Used in FactureLens, Matjari, LeadPilot, Taskly": "Utilisé dans <a href=\"#p-facturelens\">FactureLens</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-taskly\">Taskly</a>",
+      "Used in LinguaCards, Matjari, LeadPilot, FactureLens, Theme Generator": "Utilisé dans <a href=\"#p-linguacards\">LinguaCards</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-facturelens\">FactureLens</a>, <a href=\"#p-theme\">Theme Generator</a>",
+      "Used in Taskly, Matjari, LeadPilot, FactureLens": "Utilisé dans <a href=\"#p-taskly\">Taskly</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-facturelens\">FactureLens</a>",
+      "AI document reading": "Lecture de documents par IA",
+      "Turns invoices and receipts into clean, checked data: from PDFs, phone photos, screenshots, e-invoices or a Google Drive folder.": "Transforme factures et tickets de caisse en données propres et vérifiées : depuis des PDF, des photos, des captures d'écran, des factures électroniques ou un dossier Google Drive.",
+      "Reads Arabic, French and English documents; e-invoices (UBL, Factur-X) are read exactly, without AI.": "Lit les documents en arabe, français et anglais ; les factures électroniques (UBL, Factur-X) sont lues exactement, sans IA.",
+      "Checks that line items, tax and total add up, and flags anything that doesn't for review.": "Vérifie que les lignes, la TVA et le total concordent, et signale tout écart à vérifier.",
+      "Private by design: files are deleted right after reading and results stay in the visitor's browser.": "Confidentiel : les fichiers sont supprimés juste après la lecture et les résultats restent dans le navigateur du visiteur.",
+      "facturelens — how it works": "facturelens — comment ça marche",
+      "You add documents": "Vous ajoutez vos documents",
+      "PDFs, photos, screenshots, e-invoices or a Drive folder.": "PDF, photos, captures d'écran, factures électroniques ou dossier Drive.",
+      "AI reads them": "L'IA les lit",
+      "In Arabic, French or English, in a few seconds.": "En arabe, français ou anglais, en quelques secondes.",
+      "Totals are checked": "Les totaux sont vérifiés",
+      "Lines, tax and total must add up, or the document is flagged.": "Lignes, taxes et total doivent concorder, sinon le document est signalé.",
+      "You fix if needed": "Vous corrigez si besoin",
+      "Every value can be corrected before export.": "Chaque valeur peut être corrigée avant l'export.",
+      "Export to Excel": "Export vers Excel",
+      "Clean data, ready for your accountant.": "Des données propres, prêtes pour votre comptable."
   };
   const META = {
     en: {title: document.title, desc: document.querySelector('meta[name="description"]').content},
