@@ -311,6 +311,36 @@
   .lb-bar button:hover{border-color:var(--accent);color:var(--accent)}
   .lb img{display:block;width:100%;height:auto;background:#fff}
 
+  /* ---------- services ---------- */
+  .services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+  .svc{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:30px 28px;transition:border-color .3s,transform .3s}
+  .svc:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+  .svc-ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--surface-2);border:1px solid var(--line-strong);color:var(--accent);margin-bottom:20px}
+  .svc-ico svg{width:21px;height:21px}
+  .svc h3{font-family:var(--display);font-weight:800;font-size:1.45rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:8px}
+  .svc-pitch{color:var(--text);font-size:1rem;margin-bottom:18px}
+  .svc ul{list-style:none;margin-bottom:24px}
+  .svc li{position:relative;padding-left:20px;color:var(--muted);font-size:.93rem;margin-bottom:8px}
+  .svc li::before{content:"\25B8";position:absolute;left:0;color:var(--accent)}
+  .svc-meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:18px;border-top:1px solid var(--line)}
+  .svc-price{font-family:var(--display);font-weight:800;font-size:1.4rem;letter-spacing:-.01em}
+  .svc-price small{font-family:var(--body);font-weight:500;font-size:.85rem;color:var(--muted);margin-right:5px;letter-spacing:0}
+  .svc-time{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .svc-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .svc-actions a{font-family:var(--mono);font-size:13px;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);border-radius:8px;padding:8px 12px;transition:.2s;white-space:nowrap}
+  .svc-actions a.main{background:var(--accent);border-color:var(--accent);color:#0a0a0a;font-weight:700}
+  .svc-actions a:hover{border-color:var(--accent);color:var(--accent)}
+  .svc-actions a.main:hover{color:#0a0a0a;transform:translateY(-2px);box-shadow:0 12px 30px -8px var(--glow)}
+  .svc-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+  .svc-step{display:flex;gap:14px;align-items:flex-start}
+  .svc-step > span{font-family:var(--mono);font-size:12px;color:var(--accent);border:1px solid rgba(200,245,58,.3);border-radius:8px;padding:4px 8px;flex:none}
+  .svc-step b{display:block;font-weight:600;margin-bottom:2px}
+  .svc-step p{color:var(--muted);font-size:.92rem}
+  @media(max-width:960px){
+    .services{grid-template-columns:1fr}
+    .svc-steps{grid-template-columns:1fr;gap:18px}
+  }
+
   /* ---------- experience ---------- */
   .timeline{position:relative;padding-left:34px}
   .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--line-strong),transparent)}
@@ -394,6 +424,7 @@
   <a href="#top" class="logo">~/<span>Djef</span></a>
   <div class="nav-links" id="navlinks">
     <a href="#work">work</a>
+    <a href="#services">services</a>
     <a href="#skills">stack</a>
     <a href="#experience">experience</a>
     <a href="#contact" class="nav-cta">Hire me</a>
@@ -617,6 +648,68 @@ app = <span class="f">FastAPI</span>()
   </div>
 </section>
 
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2 class="sec-title">Services</h2>
+      <span class="sec-line"></span>
+    </div>
+    <p class="sec-intro reveal">What I can build for your business. Every project starts with a free call to agree on what you need.</p>
+    <div class="services">
+      <article class="svc reveal">
+        <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></svg></span>
+        <h3>AI automation</h3>
+        <p class="svc-pitch">Let AI handle the repetitive work: sorting messages, answering customers and moving data between your tools.</p>
+        <ul>
+          <li>AI that reads, sorts and answers customer messages</li>
+          <li>Chatbots that answer from your own documents and FAQ</li>
+          <li>n8n workflows connecting email, Google Sheets and your CRM</li>
+        </ul>
+        <div class="svc-meta"><span class="svc-price">Price on request</span><span class="svc-time">1&ndash;2 weeks</span></div>
+        <div class="svc-actions">
+          <a class="main" href="mailto:abdelghani.djefaflia@gmail.com?subject=AI%20automation%20project">Start a project</a>
+          <a href="#p-leadpilot">See LeadPilot</a>
+        </div>
+      </article>
+      <article class="svc reveal">
+        <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span>
+        <h3>Online store for Algerian sellers</h3>
+        <p class="svc-pitch">Sell beyond Facebook with your own store, built for cash on delivery.</p>
+        <ul>
+          <li>Store in Arabic and French, fast on phones</li>
+          <li>Cash-on-delivery checkout for all 69 wilayas</li>
+          <li>Order dashboard, with delivery company integration</li>
+        </ul>
+        <div class="svc-meta"><span class="svc-price"><small>from</small>10&#8239;000 DZD</span><span class="svc-time">1&ndash;3 weeks</span></div>
+        <div class="svc-actions">
+          <a class="main" href="mailto:abdelghani.djefaflia@gmail.com?subject=Online%20store%20project">Start a project</a>
+          <a href="#p-matjari">See Matjari</a>
+        </div>
+      </article>
+      <article class="svc reveal">
+        <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 13l-2 2 2 2M15 13l2 2-2 2"/></svg></span>
+        <h3>Custom web app</h3>
+        <p class="svc-pitch">From an idea to a live product your users can sign in to.</p>
+        <ul>
+          <li>React or Next.js frontend, FastAPI backend</li>
+          <li>Database, user accounts and admin dashboard</li>
+          <li>Deployed on your server with Docker and HTTPS</li>
+        </ul>
+        <div class="svc-meta"><span class="svc-price"><small>from</small>10&#8239;000 DZD</span><span class="svc-time">2&ndash;6 weeks</span></div>
+        <div class="svc-actions">
+          <a class="main" href="mailto:abdelghani.djefaflia@gmail.com?subject=Web%20app%20project">Start a project</a>
+          <a href="#p-linguacards">See LinguaCards</a>
+        </div>
+      </article>
+    </div>
+    <div class="svc-steps reveal">
+      <div class="svc-step"><span>01</span><div><b>Free first call</b><p>We talk about your goal, and I tell you honestly whether I'm the right fit.</p></div></div>
+      <div class="svc-step"><span>02</span><div><b>Fixed price, in writing</b><p>You get the scope, price and deadline before any work starts.</p></div></div>
+      <div class="svc-step"><span>03</span><div><b>Weekly updates</b><p>You see progress every week and test everything before launch.</p></div></div>
+    </div>
+  </div>
+</section>
+
 <section id="skills">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -760,7 +853,7 @@ app = <span class="f">FastAPI</span>()
   const io = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
       if (e.isIntersecting){
-        setTimeout(() => e.target.classList.add('in'), e.target.closest('.stack,.projects,.minis,.timeline') ? i * 90 : 60);
+        setTimeout(() => e.target.classList.add('in'), e.target.closest('.stack,.projects,.minis,.timeline,.services') ? i * 90 : 60);
         io.unobserve(e.target);
       }
     });
