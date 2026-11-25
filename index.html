@@ -296,13 +296,18 @@
   .mg-caption{padding:12px 16px;border-top:1px solid var(--line);font-size:.88rem;color:var(--muted);min-height:3.4em}
 
   /* LeadPilot: how it works, in plain words */
-  .lp-flow{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 30px 30px}
-  .lp-steps{list-style:none;display:flex;flex-direction:column;gap:26px}
-  .lp-steps li{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr);column-gap:16px;align-items:start}
-  .lp-steps li:not(:last-child)::after{content:"\2193";position:absolute;left:14px;bottom:-24px;font-family:var(--mono);font-size:15px;color:var(--accent)}
-  .lp-ico{grid-row:span 3;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line-strong);color:var(--accent)}
+  .lp-flow{flex:1;display:flex;flex-direction:column;justify-content:center;padding:30px 34px}
+  /* steps sit on a rail; --fill (0..1) draws the lime progress line as each step lights up */
+  .lp-steps{list-style:none;display:flex;flex-direction:column;gap:6px;position:relative;--fill:0}
+  .lp-steps::before,.lp-steps::after{content:"";position:absolute;left:21px;top:33px;width:2px;border-radius:2px}
+  .lp-steps::before{bottom:33px;background:var(--line-strong)}
+  .lp-steps::after{height:calc((100% - 66px) * var(--fill));background:var(--accent);box-shadow:0 0 10px rgba(200,245,58,.45);transition:height .45s var(--ease)}
+  .lp-steps li{position:relative;z-index:1;display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:16px;align-items:start;padding:11px 0}
+  .lp-ico{grid-row:span 3;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line-strong);color:var(--faint);transition:color .4s,border-color .4s,box-shadow .4s}
   .lp-ico svg{width:20px;height:20px}
-  .lp-steps b{font-family:var(--display);font-weight:600;font-size:1.02rem;letter-spacing:-.01em;line-height:1.3}
+  .lp-steps li.lit .lp-ico{color:var(--accent);border-color:rgba(200,245,58,.5);box-shadow:0 0 0 4px rgba(200,245,58,.08)}
+  .lp-steps b{font-family:var(--display);font-weight:600;font-size:1.04rem;letter-spacing:-.01em;line-height:1.3;color:var(--muted);transition:color .4s}
+  .lp-steps li.lit b{color:var(--text)}
   .lp-steps .d{font-size:.9rem;color:var(--muted);line-height:1.45}
   .lp-dots{display:flex;gap:5px;margin:4px 0 2px}
   .lp-dots i{width:9px;height:9px;border-radius:50%}
@@ -334,7 +339,7 @@
   .svc-price{font-family:var(--display);font-weight:800;font-size:1.4rem;letter-spacing:-.01em}
   .svc-price small{font-family:var(--body);font-weight:500;font-size:.85rem;color:var(--muted);margin-right:5px;letter-spacing:0}
   .svc-time{font-family:var(--mono);font-size:12px;color:var(--faint)}
-  .svc-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .svc-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start;align-content:flex-start;margin-top:18px}
   .svc-actions a{font-family:var(--mono);font-size:13px;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);border-radius:8px;padding:8px 12px;transition:.2s;white-space:nowrap}
   .svc-actions a.main{background:var(--accent);border-color:var(--accent);color:#0a0a0a;font-weight:700}
   .svc-actions a:hover{border-color:var(--accent);color:var(--accent)}
@@ -347,6 +352,25 @@
   @media(max-width:960px){
     .services{grid-template-columns:1fr}
     .svc-steps{grid-template-columns:1fr;gap:18px}
+  }
+  /* side by side, the three cards share rows so pitch, list, price and buttons line up */
+  @media(min-width:961px){
+    @supports (grid-template-rows:subgrid){
+      .svc{display:grid;grid-row:span 6;grid-template-rows:subgrid;row-gap:0}
+      .svc-meta{margin-top:0}
+    }
+  }
+
+  /* project shortcuts under the work intro */
+  .p-index{display:flex;flex-wrap:wrap;gap:8px;margin:-24px 0 36px}
+  .p-index a{display:inline-flex;align-items:baseline;gap:8px;padding:7px 13px;border:1px solid var(--line);border-radius:30px;background:var(--surface);font-size:.92rem;transition:border-color .2s,color .2s}
+  .p-index a b{font-weight:600}
+  .p-index a span{font-size:.8rem;color:var(--faint)}
+  .p-index a:hover{border-color:var(--accent);color:var(--accent)}
+  @media(max-width:820px){
+    .p-index{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;margin:-12px -16px 28px;padding:0 16px 4px;scrollbar-width:none}
+    .p-index::-webkit-scrollbar{display:none}
+    .p-index a{flex:none;scroll-snap-align:start}
   }
 
   /* ---------- experience ---------- */
@@ -455,7 +479,7 @@
         <p class="hero-sub reveal">I build and ship web products end to end: <b>React</b> frontends, <b>FastAPI</b> backends, <b>AI</b> features, and the <b>DevOps</b> that runs them. 4 years in production, at home on <b>Linux</b>.</p>
         <div class="hero-actions reveal">
           <a href="#work" class="btn btn-primary">See my work</a>
-          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+          <a href="#services" class="btn btn-ghost">Services &amp; prices</a>
         </div>
       </div>
       <div class="term reveal" role="img" aria-label="Terminal: code is pushed, CI passes, and the Docker services for a FastAPI, React, PostgreSQL and Nginx app start up.">
@@ -466,7 +490,7 @@
     </div>
     <div class="facts reveal">
       <div class="fact"><div class="num"><em data-count="4">4</em>+</div><div class="lbl">years shipping apps to production</div></div>
-      <div class="fact"><div class="num"><em data-count="2">2</em></div><div class="lbl">AI-powered products built end to end</div></div>
+      <div class="fact"><div class="num"><em data-count="3">3</em></div><div class="lbl">AI-powered products built end to end</div></div>
       <div class="fact"><div class="num"><em data-count="3">3</em></div><div class="lbl">interface languages: Arabic, French, English</div></div>
       <div class="fact"><div class="num"><em data-count="69">69</em></div><div class="lbl">wilayas covered by Matjari's checkout</div></div>
     </div>
@@ -480,6 +504,13 @@
       <span class="sec-line"></span>
     </div>
     <p class="sec-intro reveal">Four products I designed and built end to end, then smaller projects.</p>
+    <div class="p-index reveal" role="navigation" aria-label="Projects on this page">
+      <a href="#p-linguacards"><b>LinguaCards</b><span>AI learning app</span></a>
+      <a href="#p-matjari"><b>Matjari</b><span>E-commerce SaaS</span></a>
+      <a href="#p-leadpilot"><b>LeadPilot</b><span>AI automation</span></a>
+      <a href="#p-facturelens"><b>FactureLens</b><span>AI document reading</span></a>
+      <a href="#more"><b>More projects</b></a>
+    </div>
 
     <div class="projects">
       <article class="project spot reveal" id="p-linguacards">
@@ -664,7 +695,7 @@
       </article>
     </div>
 
-    <div class="more-head reveal">
+    <div class="more-head reveal" id="more">
       <h3>More projects</h3>
       <a href="https://github.com/abdelghani-djef" target="_blank" rel="noopener">All repositories on GitHub &#8599;</a>
     </div>
@@ -1111,6 +1142,22 @@ app = <span class="f">FastAPI</span>()
     setTimeout(() => { copyBtn.textContent = lang === 'fr' ? 'Copier l’adresse' : 'Copy address'; copyBtn.dataset.done = 'false'; }, 2200);
   });
 
+  /* how-it-works flows: light each step in order the first time the flow scrolls into view */
+  document.querySelectorAll('.lp-steps').forEach(list => {
+    const steps = [...list.children];
+    const light = n => {
+      steps.forEach((s, i) => s.classList.toggle('lit', i < n));
+      list.style.setProperty('--fill', n <= 1 ? 0 : (n - 1) / (steps.length - 1));
+    };
+    if (reduceMotion) { light(steps.length); return; }
+    const flowIO = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      flowIO.disconnect();
+      steps.forEach((_, i) => setTimeout(() => light(i + 1), 250 + i * 480));
+    }, {threshold: .45});
+    flowIO.observe(list);
+  });
+
   /* language: English in the HTML, French below, keyed by each element's English text */
   const FR = {
       "work": "projets",
@@ -1122,7 +1169,7 @@ app = <span class="f">FastAPI</span>()
       "Full-stack developer": "Développeur full-stack",
       "I build and ship web products end to end: React frontends, FastAPI backends, AI features, and the DevOps that runs them. 4 years in production, at home on Linux.": "Je conçois et livre des produits web de A à Z : des interfaces <b>React</b>, des backends <b>FastAPI</b>, des fonctionnalités d'<b>IA</b> et le <b>DevOps</b> qui les fait tourner. 4 ans en production, à l'aise sous <b>Linux</b>.",
       "See my work": "Voir mes projets",
-      "Get in touch": "Me contacter",
+      "Services & prices": "Services et tarifs",
       "years shipping apps to production": "ans à livrer des applications en production",
       "AI-powered products built end to end": "produits avec IA conçus de A à Z",
       "interface languages: Arabic, French, English": "langues d'interface : arabe, français, anglais",
