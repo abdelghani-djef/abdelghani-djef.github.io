@@ -361,14 +361,14 @@
     }
   }
 
-  /* project shortcuts under the work intro */
-  .p-index{display:flex;flex-wrap:wrap;gap:8px;margin:-24px 0 36px}
+  /* project shortcuts under the work heading */
+  .p-index{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 40px}
   .p-index a{display:inline-flex;align-items:baseline;gap:8px;padding:7px 13px;border:1px solid var(--line);border-radius:30px;background:var(--surface);font-size:.92rem;transition:border-color .2s,color .2s}
   .p-index a b{font-weight:600}
   .p-index a span{font-size:.8rem;color:var(--faint)}
   .p-index a:hover{border-color:var(--accent);color:var(--accent)}
   @media(max-width:820px){
-    .p-index{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;margin:-12px -16px 28px;padding:0 16px 4px;scrollbar-width:none}
+    .p-index{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;margin:16px -16px 28px;padding:0 16px 4px;scrollbar-width:none}
     .p-index::-webkit-scrollbar{display:none}
     .p-index a{flex:none;scroll-snap-align:start}
   }
@@ -491,7 +491,7 @@
     </div>
     <div class="facts reveal">
       <div class="fact"><div class="num"><em data-count="4">4</em>+</div><div class="lbl">years shipping apps to production</div></div>
-      <div class="fact"><div class="num"><em data-count="4">4</em></div><div class="lbl">AI-powered products built end to end</div></div>
+      <div class="fact"><div class="num"><em data-count="5">5</em></div><div class="lbl">AI-powered products built end to end</div></div>
       <div class="fact"><div class="num"><em data-count="3">3</em></div><div class="lbl">interface languages: Arabic, French, English</div></div>
     </div>
   </div>
@@ -503,13 +503,13 @@
       <h2 class="sec-title">Selected work</h2>
       <span class="sec-line"></span>
     </div>
-    <p class="sec-intro reveal">Five products I designed and built end to end, then smaller projects.</p>
     <div class="p-index reveal" role="navigation" aria-label="Projects on this page">
       <a href="#p-linguacards"><b>LinguaCards</b><span>AI learning app</span></a>
       <a href="#p-matjari"><b>Matjari</b><span>E-commerce SaaS</span></a>
       <a href="#p-leadpilot"><b>LeadPilot</b><span>AI automation</span></a>
       <a href="#p-facturelens"><b>FactureLens</b><span>AI document reading</span></a>
       <a href="#p-motarjem"><b>Motarjem</b><span>AI document translation</span></a>
+      <a href="#p-dimafit"><b>DimaFit</b><span>AI fitness planning</span></a>
       <a href="#more"><b>More projects</b></a>
     </div>
 
@@ -744,6 +744,56 @@
           </div>
         </div>
       </article>
+
+      <article class="project flip spot reveal" id="p-dimafit">
+        <div class="p-body">
+          <span class="p-type">AI fitness planning</span>
+          <h3 class="p-title">DimaFit</h3>
+          <p class="p-summary">A workout plan and daily nutrition targets, built from your goal, body measurements, experience and equipment.</p>
+          <ul class="p-points">
+            <li>Calories, protein and body fat come from proven formulas in code; the AI only picks among exercises that fit.</li>
+            <li>Leaves out exercises that strain injured knees, back, shoulders or wrists, at the gym, at home or with no equipment.</li>
+            <li>In English, French and Arabic, with exercise swaps and a printable plan. Nothing is stored on the server.</li>
+          </ul>
+          <div class="p-stack"><span>Python</span><span>FastAPI</span><span>React</span><span>TypeScript</span><span>Groq AI</span><span>Tailwind v4</span><span>Docker</span></div>
+          <div class="p-links">
+            <a class="main" href="https://dimafit.35-180-91-97.sslip.io" target="_blank" rel="noopener">Open the app <span class="arr">&#8599;</span></a>
+            <a href="https://github.com/abdelghani-djef/dimafit" target="_blank" rel="noopener">Source <span class="arr">&#8599;</span></a>
+          </div>
+        </div>
+        <div class="p-visual">
+          <div class="p-bar"><i></i><i></i><i></i><span class="term-title">dimafit &mdash; how it works</span></div>
+          <div class="lp-flow">
+            <ol class="lp-steps">
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 20c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"/></svg></span>
+                <b>You describe yourself</b>
+                <span class="d">Goal, height, weight, level and where you train.</span>
+              </li>
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg></span>
+                <b>Your numbers are calculated</b>
+                <span class="d">Calories, protein and body fat, with proven formulas.</span>
+              </li>
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></svg></span>
+                <b>AI builds your week</b>
+                <span class="d">Exercises that fit your equipment and protect injuries.</span>
+              </li>
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg></span>
+                <b>You adjust it</b>
+                <span class="d">Swap any exercise for another one that fits.</span>
+              </li>
+              <li>
+                <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></svg></span>
+                <b>Print it or save as PDF</b>
+                <span class="d">Ready for the gym, in your language.</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </article>
     </div>
 
     <div class="more-head reveal" id="more">
@@ -868,7 +918,7 @@ app = <span class="f">FastAPI</span>()
         <span class="pill">Python</span><span class="pill">FastAPI</span><span class="pill">Odoo</span>
         <span class="pill">REST APIs</span><span class="pill">PostgreSQL</span><span class="pill">SQLAlchemy</span>
         <span class="pill">Pydantic</span><span class="pill">Prisma</span><span class="pill">Redis</span><span class="pill">Celery</span>
-        <p class="stack-proof">Used in <a href="#p-facturelens">FactureLens</a>, <a href="#p-motarjem">Motarjem</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-taskly">Taskly</a></p>
+        <p class="stack-proof">Used in <a href="#p-facturelens">FactureLens</a>, <a href="#p-motarjem">Motarjem</a>, <a href="#p-dimafit">DimaFit</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-taskly">Taskly</a></p>
       </div>
       <div class="stack-col reveal">
         <h3>Frontend</h3>
@@ -876,7 +926,7 @@ app = <span class="f">FastAPI</span>()
         <span class="pill">React</span><span class="pill">Next.js</span><span class="pill">TypeScript</span>
         <span class="pill">JavaScript</span><span class="pill">Redux / Zustand</span><span class="pill">TanStack Query</span>
         <span class="pill">Tailwind</span><span class="pill">shadcn/ui</span><span class="pill">Vite</span>
-        <p class="stack-proof">Used in <a href="#p-linguacards">LinguaCards</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-facturelens">FactureLens</a>, <a href="#p-motarjem">Motarjem</a>, <a href="#p-theme">Theme Generator</a></p>
+        <p class="stack-proof">Used in <a href="#p-linguacards">LinguaCards</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-facturelens">FactureLens</a>, <a href="#p-motarjem">Motarjem</a>, <a href="#p-dimafit">DimaFit</a>, <a href="#p-theme">Theme Generator</a></p>
       </div>
       <div class="stack-col reveal">
         <h3>DevOps &amp; infra</h3>
@@ -884,7 +934,7 @@ app = <span class="f">FastAPI</span>()
         <span class="pill">Linux</span><span class="pill">Docker</span><span class="pill">Nginx</span>
         <span class="pill">CI/CD</span><span class="pill">GitHub Actions</span><span class="pill">Bash</span>
         <span class="pill">VPS / Azure</span><span class="pill">Vercel</span><span class="pill">Git</span>
-        <p class="stack-proof">Used in <a href="#p-taskly">Taskly</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-facturelens">FactureLens</a>, <a href="#p-motarjem">Motarjem</a></p>
+        <p class="stack-proof">Used in <a href="#p-taskly">Taskly</a>, <a href="#p-matjari">Matjari</a>, <a href="#p-leadpilot">LeadPilot</a>, <a href="#p-facturelens">FactureLens</a>, <a href="#p-motarjem">Motarjem</a>, <a href="#p-dimafit">DimaFit</a></p>
       </div>
     </div>
   </div>
@@ -1328,10 +1378,9 @@ app = <span class="f">FastAPI</span>()
       "Copy address": "Copier l'adresse",
       "Hand-written HTML, CSS and JavaScript. Back to top": "HTML, CSS et JavaScript écrits à la main. <a href=\"#top\">Retour en haut</a>",
       "Close": "Fermer",
-      "Five products I designed and built end to end, then smaller projects.": "Cinq produits que j'ai conçus et développés de A à Z, puis des projets plus petits.",
-      "Used in FactureLens, Motarjem, Matjari, LeadPilot, Taskly": "Utilisé dans <a href=\"#p-facturelens\">FactureLens</a>, <a href=\"#p-motarjem\">Motarjem</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-taskly\">Taskly</a>",
-      "Used in LinguaCards, Matjari, LeadPilot, FactureLens, Motarjem, Theme Generator": "Utilisé dans <a href=\"#p-linguacards\">LinguaCards</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-facturelens\">FactureLens</a>, <a href=\"#p-motarjem\">Motarjem</a>, <a href=\"#p-theme\">Theme Generator</a>",
-      "Used in Taskly, Matjari, LeadPilot, FactureLens, Motarjem": "Utilisé dans <a href=\"#p-taskly\">Taskly</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-facturelens\">FactureLens</a>, <a href=\"#p-motarjem\">Motarjem</a>",
+      "Used in FactureLens, Motarjem, DimaFit, Matjari, LeadPilot, Taskly": "Utilisé dans <a href=\"#p-facturelens\">FactureLens</a>, <a href=\"#p-motarjem\">Motarjem</a>, <a href=\"#p-dimafit\">DimaFit</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-taskly\">Taskly</a>",
+      "Used in LinguaCards, Matjari, LeadPilot, FactureLens, Motarjem, DimaFit, Theme Generator": "Utilisé dans <a href=\"#p-linguacards\">LinguaCards</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-facturelens\">FactureLens</a>, <a href=\"#p-motarjem\">Motarjem</a>, <a href=\"#p-dimafit\">DimaFit</a>, <a href=\"#p-theme\">Theme Generator</a>",
+      "Used in Taskly, Matjari, LeadPilot, FactureLens, Motarjem, DimaFit": "Utilisé dans <a href=\"#p-taskly\">Taskly</a>, <a href=\"#p-matjari\">Matjari</a>, <a href=\"#p-leadpilot\">LeadPilot</a>, <a href=\"#p-facturelens\">FactureLens</a>, <a href=\"#p-motarjem\">Motarjem</a>, <a href=\"#p-dimafit\">DimaFit</a>",
       "AI document reading": "Lecture de documents par IA",
       "Turns invoices and receipts into clean, checked data: from PDFs, phone photos, screenshots, e-invoices or a Google Drive folder.": "Transforme factures et tickets de caisse en données propres et vérifiées : depuis des PDF, des photos, des captures d'écran, des factures électroniques ou un dossier Google Drive.",
       "Reads Arabic, French and English documents; e-invoices (UBL, Factur-X) are read exactly, without AI.": "Lit les documents en arabe, français et anglais ; les factures électroniques (UBL, Factur-X) sont lues exactement, sans IA.",
@@ -1362,7 +1411,23 @@ app = <span class="f">FastAPI</span>()
       "You check every line": "Vous vérifiez chaque ligne",
       "Original and translation side by side, easy to fix.": "L'original et la traduction côte à côte, faciles à corriger.",
       "Download Word or PDF": "Téléchargement en Word ou PDF",
-      "Ready to print, send or keep editing.": "Prêt à imprimer, à envoyer ou à modifier."
+      "Ready to print, send or keep editing.": "Prêt à imprimer, à envoyer ou à modifier.",
+      "AI fitness planning": "Programmes sportifs par IA",
+      "A workout plan and daily nutrition targets, built from your goal, body measurements, experience and equipment.": "Un programme d'entraînement et des objectifs nutritionnels quotidiens, construits selon votre objectif, vos mensurations, votre niveau et votre matériel.",
+      "Calories, protein and body fat come from proven formulas in code; the AI only picks among exercises that fit.": "Calories, protéines et masse grasse viennent de formules reconnues calculées dans le code ; l'IA choisit seulement parmi les exercices adaptés.",
+      "Leaves out exercises that strain injured knees, back, shoulders or wrists, at the gym, at home or with no equipment.": "Écarte les exercices qui sollicitent des genoux, un dos, des épaules ou des poignets blessés, en salle, à la maison ou sans matériel.",
+      "In English, French and Arabic, with exercise swaps and a printable plan. Nothing is stored on the server.": "En anglais, français et arabe, avec échange d'exercices et programme imprimable. Rien n'est conservé sur le serveur.",
+      "dimafit — how it works": "dimafit — comment ça marche",
+      "You describe yourself": "Vous vous décrivez",
+      "Goal, height, weight, level and where you train.": "Objectif, taille, poids, niveau et lieu d'entraînement.",
+      "Your numbers are calculated": "Vos chiffres sont calculés",
+      "Calories, protein and body fat, with proven formulas.": "Calories, protéines et masse grasse, avec des formules reconnues.",
+      "AI builds your week": "L'IA construit votre semaine",
+      "Exercises that fit your equipment and protect injuries.": "Des exercices adaptés à votre matériel, qui ménagent vos blessures.",
+      "You adjust it": "Vous l'ajustez",
+      "Swap any exercise for another one that fits.": "Remplacez n'importe quel exercice par un autre qui convient.",
+      "Print it or save as PDF": "Imprimez-le ou enregistrez-le en PDF",
+      "Ready for the gym, in your language.": "Prêt pour la salle, dans votre langue."
   };
   const META = {
     en: {title: document.title, desc: document.querySelector('meta[name="description"]').content},
