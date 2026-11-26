@@ -161,7 +161,7 @@
   .term-replay:hover{color:var(--accent);border-color:var(--accent)}
   .term-replay[hidden]{display:none}
 
-  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
+  .facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
   .fact{padding:26px 24px 0 0}
   .fact + .fact{padding-left:24px;border-left:1px solid var(--line)}
   .fact .num{font-family:var(--display);font-weight:800;font-size:2.4rem;line-height:1;font-variant-numeric:tabular-nums}
@@ -432,7 +432,7 @@
     .more-head{margin-top:48px;flex-direction:column;align-items:flex-start;gap:4px}
   }
   .nw{white-space:nowrap}
-  /* on phones the three facts stack: number on the left, label beside it */
+  /* on phones the facts stack: number on the left, label beside it */
   @media(max-width:560px){
     .facts{grid-template-columns:1fr}
     .fact,.fact + .fact{display:flex;align-items:center;gap:16px;padding:16px 0 0;border-left:0}
@@ -491,7 +491,6 @@
     </div>
     <div class="facts reveal">
       <div class="fact"><div class="num"><em data-count="4">4</em>+</div><div class="lbl">years shipping apps to production</div></div>
-      <div class="fact"><div class="num"><em data-count="5">5</em></div><div class="lbl">AI-powered products built end to end</div></div>
       <div class="fact"><div class="num"><em data-count="3">3</em></div><div class="lbl">interface languages: Arabic, French, English</div></div>
     </div>
   </div>
@@ -1272,7 +1271,6 @@ app = <span class="f">FastAPI</span>()
       "See my work": "Voir mes projets",
       "Services & prices": "Services et tarifs",
       "years shipping apps to production": "ans à livrer des applications en production",
-      "AI-powered products built end to end": "produits avec IA conçus de A à Z",
       "interface languages: Arabic, French, English": "langues d'interface : arabe, français, anglais",
       "Selected work": "Réalisations",
       "AI learning app": "Appli d'apprentissage IA",
